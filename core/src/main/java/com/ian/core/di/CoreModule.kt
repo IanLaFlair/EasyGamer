@@ -1,13 +1,15 @@
 package com.ian.core.di
 
 import androidx.room.Room
-import com.dicoding.tourismapp.core.utils.AppExecutors
+import com.ian.core.utils.AppExecutors
 import com.ian.core.data.GamesRepository
 import com.ian.core.data.source.local.LocalDataSource
 import com.ian.core.data.source.local.room.GamesDatabase
 import com.ian.core.data.source.remote.RemoteDataSource
 import com.ian.core.data.source.remote.network.ApiService
 import com.ian.core.domain.repository.IGamesRepository
+//import net.sqlcipher.database.SQLiteDatabase
+//import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +21,8 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<GamesDatabase>().gamesDao() }
     single {
+//        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+//        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             GamesDatabase::class.java, "games.db"

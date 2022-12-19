@@ -1,12 +1,11 @@
 package com.ian.easygamer.favorite
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ian.core.ui.GamesAdapter
-import com.ian.easygamer.R
 import com.ian.easygamer.databinding.ActivityFavoriteBinding
 import com.ian.easygamer.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,10 +32,10 @@ class FavoriteActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        favoriteViewModel.favoriteGames.observe(this, { games ->
+        favoriteViewModel.favoriteGames.observe(this) { games ->
             gamesAdapter.setData(games)
             binding.txtWarn.visibility = if (games.isNotEmpty()) View.GONE else View.VISIBLE
-        })
+        }
 
         with(binding.rvgames) {
             layoutManager = GridLayoutManager(this@FavoriteActivity,2)

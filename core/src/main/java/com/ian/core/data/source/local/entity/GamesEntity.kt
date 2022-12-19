@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "games")
 data class GamesEntity (
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "gamesId")
     var gamesId: Int,
 

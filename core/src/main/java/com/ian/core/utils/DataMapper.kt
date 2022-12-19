@@ -1,7 +1,6 @@
-package com.dicoding.tourismapp.core.utils
+package com.ian.core.utils
 
 import com.ian.core.data.source.local.entity.GamesEntity
-import com.ian.core.data.source.remote.response.GamesResponse
 import com.ian.core.data.source.remote.response.GamesResult
 import com.ian.core.domain.model.GamesModel
 

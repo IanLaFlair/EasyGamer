@@ -1,7 +1,7 @@
 package com.ian.core.data
 
-import com.dicoding.tourismapp.core.utils.AppExecutors
-import com.dicoding.tourismapp.core.utils.DataMapper
+import com.ian.core.utils.AppExecutors
+import com.ian.core.utils.DataMapper
 import com.ian.core.data.source.local.LocalDataSource
 import com.ian.core.data.source.remote.RemoteDataSource
 import com.ian.core.data.source.remote.network.ApiResponse

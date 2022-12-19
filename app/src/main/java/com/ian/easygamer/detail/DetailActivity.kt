@@ -51,9 +51,9 @@ class DetailActivity : AppCompatActivity() {
     }
     private fun setStatusFavorite(statusFavorite: Boolean) {
         if (statusFavorite) {
-            binding.btnFavorite.setText("Hapus Sebagai Favorit")
+            binding.btnFavorite.text = "Hapus Sebagai Favorit"
         } else {
-            binding.btnFavorite.setText("Simpan Sebagai Favorit")
+            binding.btnFavorite.text = "Simpan Sebagai Favorit"
         }
     }
 

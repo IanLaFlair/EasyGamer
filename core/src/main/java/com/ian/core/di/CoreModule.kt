@@ -8,8 +8,9 @@ import com.ian.core.data.source.local.room.GamesDatabase
 import com.ian.core.data.source.remote.RemoteDataSource
 import com.ian.core.data.source.remote.network.ApiService
 import com.ian.core.domain.repository.IGamesRepository
-//import net.sqlcipher.database.SQLiteDatabase
-//import net.sqlcipher.database.SupportFactory
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -21,21 +22,28 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<GamesDatabase>().gamesDao() }
     single {
-//        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
-//        val factory = SupportFactory(passphrase)
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("dicoding".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             GamesDatabase::class.java, "games.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration().openHelperFactory(factory).build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "api.rawg.io"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/Vt5/77IBRU8Ic76wffoVpn2hrTRotDK+cuASoGoEzS0=")
+            .add(hostname, "sha256/hS5jJ4P+iQUErBkvoWBQOd1T7VOAYlOVegvv1iMzpxA=")
+            .add(hostname, "sha256/6i+nf58l8neEnNarZOvxiYfVbt2S2xurswGQQBBMa0U=")
+            .build()
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {

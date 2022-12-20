@@ -38,6 +38,11 @@ class FragmentHome : Fragment() {
                 intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
+            with(binding.rvgames) {
+                layoutManager = GridLayoutManager(context,2)
+                setHasFixedSize(true)
+                adapter = gamesAdapter
+            }
 
             homeViewModel.games.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -45,7 +50,7 @@ class FragmentHome : Fragment() {
                         is Resource.Loading -> binding.pbHome.visibility = View.VISIBLE
                         is Resource.Success -> {
                             binding.pbHome.visibility = View.GONE
-                            gamesAdapter.setData(it.data)
+                            gamesAdapter.submitList(it.data)
                         }
                         is Resource.Error -> {
                             binding.pbHome.visibility = View.GONE
@@ -59,11 +64,7 @@ class FragmentHome : Fragment() {
                 }
             }
 
-            with(binding.rvgames) {
-                layoutManager = GridLayoutManager(context,2)
-                setHasFixedSize(true)
-                adapter = gamesAdapter
-            }
+
         }
     }
 

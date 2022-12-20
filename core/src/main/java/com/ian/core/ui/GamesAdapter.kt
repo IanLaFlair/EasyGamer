@@ -1,8 +1,11 @@
 package com.ian.core.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ian.core.R
@@ -10,17 +13,9 @@ import com.ian.core.databinding.ItemListBinding
 import com.ian.core.domain.model.GamesModel
 import java.util.ArrayList
 
-class GamesAdapter : RecyclerView.Adapter<GamesAdapter.ListViewHolder>() {
+class GamesAdapter : ListAdapter<GamesModel, GamesAdapter.ListViewHolder>(TaskDiffCallBack()) {
 
-    private var listData = ArrayList<GamesModel>()
     var onItemClick: ((GamesModel) -> Unit)? = null
-
-    fun setData(newListData: List<GamesModel>?) {
-        if (newListData == null) return
-        listData.clear()
-        listData.addAll(newListData)
-        notifyDataSetChanged()
-    }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemListBinding.bind(itemView)
@@ -35,7 +30,7 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.ListViewHolder>() {
 
         init {
             binding.root.setOnClickListener {
-                onItemClick?.invoke(listData[adapterPosition])
+                onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
     }
@@ -45,9 +40,17 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.ListViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val data = listData[position]
-        holder.bind(data)
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount() = listData.size
+    class TaskDiffCallBack : DiffUtil.ItemCallback<GamesModel>() {
+        override fun areItemsTheSame(oldItem: GamesModel, newItem: GamesModel): Boolean {
+            return oldItem.gamesId == newItem.gamesId;
+        }
+
+        override fun areContentsTheSame(oldItem: GamesModel, newItem: GamesModel): Boolean {
+            return oldItem == newItem
+        }
+    }
 }
+

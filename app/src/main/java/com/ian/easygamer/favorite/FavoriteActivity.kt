@@ -33,7 +33,7 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
         favoriteViewModel.favoriteGames.observe(this) { games ->
-            gamesAdapter.setData(games)
+            gamesAdapter.submitList(games)
             binding.txtWarn.visibility = if (games.isNotEmpty()) View.GONE else View.VISIBLE
         }
 

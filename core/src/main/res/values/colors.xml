@@ -9,7 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bg_color_item">#6F0A2340</color>
     <color name="blue_button">#2377CD</color>
-    <color name="blue_bright">#2B8BED</color>
     <color name="blue_darker">#113963</color>
     <color name="color_description">#C1FFFFFF</color>
 </resources>

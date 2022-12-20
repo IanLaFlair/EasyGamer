@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ss_background"
+    style="@style/SS_BG"
     tools:context=".favorite.FavoriteActivity">
 
     <TextView
-        android:id="@+id/txt_warn"
+        android:id="@+id/txtWarn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_fav"
@@ -22,8 +22,8 @@
         android:fontFamily="@font/poppins_bold_italic"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvgames"
         android:layout_width="0dp"
+        android:id="@+id/rvgames"
         android:layout_height="0dp"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
